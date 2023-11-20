@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analog clock</title>
+    <script src="https://cdn.tailwindcss.com/"></script>
+</head>
+
+<body>
+    <div class="relative  h-[50vh] w-[50vw] bg-[url('clock.png')] bg-center bg-cover  mx-auto">
+
+        <!-- Hour hand  -->
+        <div id="hour" class="absolute origin-bottom w-[1.6%] h-[20%] top-[30%] left-[49.2%] rounded-[10px] bg-[black]  ">
+
+        </div>
+        <!-- Minute hand -->
+        <div id="minute" class="absolute origin-bottom w-[1%] h-[24%] top-[26%] left-[49.2%] rounded-[10px] bg-[black] opacity-[0.3] ">
+
+        </div>
+        <!-- Second hand -->
+        <div id="second" class="absolute origin-bottom w-[1%] h-[27%] top-[23%] left-[49.2%] rounded-[20px] bg-[black] opacity-[0.5] ">
+
+        </div>
+
+    </div>
+    <script type="text/javascript">
+        setInterval(() => {
+            d = new Date();
+            htime = d.getHours();
+            mtime = d.getMinutes();
+            stime = d.getSeconds();
+            hrotate = 30 * htime + mtime / 2;
+            mrotate = 6 * mtime;
+            srotate = 6 * stime;
+
+            hour.style.transform = `rotate(${hrotate}deg)`;
+            minute.style.transform = `rotate(${mrotate}deg)`;
+            second.style.transform = `rotate(${srotate}deg)`;
+        }, 1000);
+    </script>
+</body>
+
+</html>
