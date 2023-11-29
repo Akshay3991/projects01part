@@ -1,45 +1,98 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPEhtml>
+    <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analog clock</title>
-    <script src="https://cdn.tailwindcss.com/"></script>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Analog clock</title>
+        <script src="https://cdn.tailwindcss.com/"></script>
+    </head>
 
-<body>
-    <div class="relative  h-[50vh] w-[50vw] bg-[url('clock.png')] bg-center bg-cover  mx-auto">
+    <body onload="showTime()" class="bg-[whitesmoke]">
+        <h1 class="relative sm:top-[30px] top-[20px] sm:text-[100px] text-[50px] text-[whitesmoke] bg-[red] sm:w-[800px] w-[400px] sm:h-[160px] h-[100px]  sm:pt-[50px] pt-[45px] font-bold mx-auto">ANALOG CLOCK</h1>
+        <div class="absolute sm:top-[25%] top-[20%] sm:h-[500px] h-[250px] sm:w-[500px] sm:left-[0%] left-[17%]  w-[250px] font-bold bg-[url('clock.png')] bg-cover">
 
-        <!-- Hour hand  -->
-        <div id="hour" class="absolute origin-bottom w-[1.6%] h-[20%] top-[30%] left-[49.2%] rounded-[10px] bg-[black]  ">
+            <!--hourhand  -->
+            <div id="hour"
+                class="absolute origin-bottom w-[1.6%] h-[16%] top-[34%] left-[49.2%] rounded-[10px] bg-[black]  ">
+
+            </div>
+            <!-- Minutehand -->
+            <div id="minute"
+                class="absolute origin-bottom w-[1%] h-[22%] top-[28%] left-[49.2%] rounded-[10px] bg-[black] opacity-[0.8]  ">
+
+            </div>
+            <!-- Secondhand -->
+            <div id="second"
+                class="absolute origin-bottom w-[1%] h-[27%] top-[23%] left-[49.2%] rounded-[20px] bg-[red]  ">
+
+            </div>
+            <div id="center" class="  absolute sm:w-[30px] w-[15px] sm:h-[30px] h-[15px] left-[47%] top-[47%]  bg-[black]"></div>
 
         </div>
-        <!-- Minute hand -->
-        <div id="minute" class="absolute origin-bottom w-[1%] h-[24%] top-[26%] left-[49.2%] rounded-[10px] bg-[black] opacity-[0.3] ">
-
+        <!-- Digital clock -->
+        <div class="absolute flex  sm:right-[10%] sm:top-[50%] top-[60%] sm:right-[] right-[10px]">
+            <!--hour -->
+            <div class="sm:border-[15px] border-[8px] sm:w-[200px] w-[100px] sm:h-[220px] h-[110px] bg-[red] border-[whitesmoke]">
+                <h1 id="Digihour" class="text-[white] font-bold sm:text-[94px] text-[44px] sm:p-[30px] p-[15px]"></h1>
+            </div>
+            <!-- Minute -->
+            <div class=" sm:border-[15px] border-[8px] sm:w-[200px] w-[100px] sm:h-[220px] h-[110px]  border-[whitesmoke]">
+                <h1 id="Digimin" class="text-[black] font-bold sm:text-[94px] text-[44px] sm:p-[30px] p-[15px]"></h1>
+            </div>
+            <!-- Second -->
+            <div class="sm:border-[15px] border-[8px] sm:w-[200px] w-[100px] sm:h-[220px] h-[110px] bg-[red] border-[whitesmoke]">
+                <h1 id="Digisec" class="text-[white] font-bold sm:text-[94px] text-[44px] sm:p-[30px] p-[15px]"></h1>
+            </div>
+            <!-- session -->
+            <div class="sm:border-[15px] border-[8px] sm:w-[200px] w-[100px] sm:h-[220px] h-[110px] bg-[red] border-[whitesmoke]">
+                <h1 id="session" class="text-[whitesmoke] font-bold sm:text-[94px] text-[34px] sm:p-[30px] pt-[23px] pl-[14px] "></h1>
+            </div>
         </div>
-        <!-- Second hand -->
-        <div id="second" class="absolute origin-bottom w-[1%] h-[27%] top-[23%] left-[49.2%] rounded-[20px] bg-[black] opacity-[0.5] ">
+        <script type="text/javascript">
 
-        </div>
 
-    </div>
-    <script type="text/javascript">
-        setInterval(() => {
-            d = new Date();
-            htime = d.getHours();
-            mtime = d.getMinutes();
-            stime = d.getSeconds();
-            hrotate = 30 * htime + mtime / 2;
-            mrotate = 6 * mtime;
-            srotate = 6 * stime;
+            setInterval(showTime, 1000);
+            function showTime() {
+                var a = new Date();
+                var htime = a.getHours();
+                var mtime = a.getMinutes();
+                var stime = a.getSeconds();
 
-            hour.style.transform = `rotate(${hrotate}deg)`;
-            minute.style.transform = `rotate(${mrotate}deg)`;
-            second.style.transform = `rotate(${srotate}deg)`;
-        }, 1000);
-    </script>
-</body>
+                hrotate = 30 * htime + mtime / 2;
+                mrotate = 6 * mtime;
+                srotate = 6 * stime;
 
-</html>
+                hour.style.transform = `rotate(${hrotate}deg)`;
+                minute.style.transform = `rotate(${mrotate}deg)`;
+                second.style.transform = `rotate(${srotate}deg)`;
+
+                // digital clock
+                var session = "AM";
+                if (htime >= 12) {
+                    session = "PM";
+                }
+                if (htime > 12) {
+                   htime =htime - 12;
+                }
+
+                htime =htime < 10 ? "0" +htime :htime;
+                stime = stime < 10 ? "0" + stime : stime;
+                mtime = mtime < 10 ? "0" + mtime : mtime;
+
+
+
+                document.querySelector('#Digihour').innerText =htime;
+                document.querySelector('#Digimin').innerText = mtime;
+                document.querySelector('#Digisec').innerText = stime;
+                document.querySelector('#session').innerText = session;
+
+
+            }
+
+
+
+        </script>
+    </body>
+
+    </html>

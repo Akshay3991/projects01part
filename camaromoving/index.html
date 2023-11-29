@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>car game</title>
+    <script src="https://cdn.tailwindcss.com/"></script>
+    <style>
+        @keyframes carmove {
+            from {
+                left: 100px;
+
+
+            }
+
+            to {
+                left: 130px;
+            }
+
+        }
+
+        @keyframes roadmove1 {
+            100% {
+                transform: translatex(-500vw);
+            }
+        }
+
+        @keyframes roadmove2 {
+            100% {
+                transform: translatex(500vw);
+            }
+        }
+
+        @keyframes tyrerotate {
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        @keyframes bgmove {
+
+            100% {
+                transform: translatex(-500vw);
+            }
+        }
+
+
+        .car {
+            /* animation: carmove 4s infinite; */
+
+        }
+
+        .road1 {
+            animation: roadmove1 linear .74s infinite;
+
+        }
+        .road2 {
+            animation: roadmove2 linear .44s infinite;
+
+        }
+
+        .tyre {
+            animation: tyrerotate linear .1s infinite;
+
+        }
+        .bg{
+            animation: bgmove linear 3s infinite;
+        }
+    </style>
+</head>
+
+<body class="overflow-hidden">
+    <!-- sky -->
+    <div class="bg   h-[70vh] w-[800vw]  bg-[url('bc4.jpeg')] bg-repeat-x">
+        <!-- backgrounds end here -->
+    </div>
+
+        <div class="absolute top-[57%] road1  w-[800vw]   bg-[url('track.png')] bg-repeat-x h-[120px]">
+        </div>
+        <div class="absolute top-[72%] road2  w-[800vw] right-[.1vw]   bg-[url('track.png')] bg-repeat-x h-[220px]">
+        </div>
+        
+        <!-- Car1 -->
+        <div>
+            <img class="car absolute top-[46.8%] left-[4.5%] w-[240px] h-[100px]" src="car.png" alt="">
+        </div>
+        <div class="">
+            <img class="tyre absolute w-[43px] h-[43px] left-[6.4%] top-[54.2%]" src="tyre.png" alt="">
+        </div>
+        <div class="">
+            <img class="tyre absolute w-[43px] h-[43px] left-[16.4%] top-[54.2%]" src="tyre.png" alt="">
+        </div>
+        <!-- /////////// -->
+
+        <!--///// car2 -->
+        <div>
+            <img class="car absolute top-[56.8%] left-[4.5%] w-[350px] h-[90px]" src="car_body.png" alt="">
+        </div>
+        <div class="">
+            <img class="tyre absolute w-[65px] h-[65px] left-[7.4%] top-[61.2%]" src="car_wheel_left.png" alt="">
+        </div>
+        <div class="">
+            <img class="tyre absolute w-[65px] h-[65px] left-[19.5%] top-[61.2%]" src="car_wheel_right.png" alt="">
+        </div>
+
+        <!-- ///////////////// -->
+        <!--///// car3 -->
+        <div>
+            <img class="car absolute top-[64.8%] right-[54.5%] w-[400px] h-[150px]" src="car3.png" alt="">
+        </div>
+        <div class="">
+            <img class="tyre absolute w-[63px] h-[63px] right-[58.9%] top-[74.6%]" src="car_wheel_left.png" alt="">
+        </div>
+        <div class="">
+            <img class="tyre absolute w-[63px] h-[63px] right-[73.2%] top-[74.5%]" src="car_wheel_left.png" alt="">
+        </div>
+
+        <!-- ///////////////// -->
+        <!--///// car4 -->
+        <div>
+            <img class="car absolute top-[72.8%] left-[27.5%] w-[400px] h-[250px]" src="car4.png" alt="">
+        </div>
+        <div class="">
+            <img class="tyre absolute w-[65px] h-[65px] left-[45.6%] top-[90%]" src="tyre.png" alt="">
+        </div>
+        <div class="">
+            <img class="tyre absolute w-[65px] h-[65px] left-[30.5%] top-[90%]" src="tyre.png" alt="">
+        </div>
+
+        <!-- ///////////////// -->
+        <!--///// car5 -->
+        <div>
+            <img class="car absolute top-[48.8%] right-[18.5%] w-[300px] h-[100px]" src="R.png" alt="">
+        </div>
+        <div class="">
+            <img class="tyre absolute w-[65px] h-[65px] right-[33.6%] top-[53%]" src="car_wheel_left.png" alt="">
+        </div>
+        <div class="">
+            <img class="tyre absolute w-[70px] h-[70px] right-[20.5%] top-[53%]" src="car_wheel_right.png" alt="">
+        </div>
+
+        <!-- ///////////////// -->
+        <!-- car6 -->
+        <div>
+            <img class="car absolute top-[56.8%] right-[17.5%] w-[400px] h-[250px]" src="car6.png" >
+        </div>
+        <div class="">
+            <img class="tyre absolute w-[60px] h-[60px] right-[37.7%] top-[73%]" src="tyre.png" alt="">
+        </div>
+        <div class="">
+            <img class="tyre absolute w-[60px] h-[60px] right-[22.4%] top-[73%]" src="tyre.png" alt="">
+        </div>
+
+        <!-- ///////////////// -->
+
+
+
+
+</body>
+
+</html>
