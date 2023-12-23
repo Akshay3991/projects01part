@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat App</title>
+  <script src="/socket.io/socket.io.js"></script>
+  <style>
+    * {
+      margin: 0px;
+      padding: 0px;
+    }
+
+    body {
+      background-image: linear-gradient(rgb(6, 197, 89), rgb(249, 251, 252));
+      height: 100vh;
+    }
+
+    .main {
+      z-index: -1;
+    }
+
+    .on {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #F6F6F6;
+      width: 100%;
+      height: 100vh;
+
+    }
+
+
+    .img {
+      height: 50%;
+      width: 50%;
+    }
+
+
+    .logo {
+      background:url("logo.png");
+      display: block;
+      margin: auto;
+      width: 50px;
+      height: 50px;
+    }
+
+
+    .container {
+      max-width: 955px;
+      color: coral;
+      background-color: rgb(5, 151, 66);
+      margin: auto;
+      height: 60vh;
+      overflow-y: auto;
+      margin-bottom: 23px;
+    }
+
+    .message {
+      background-color: rgb(245, 242, 242);
+      width: 24%;
+      padding: 13px;
+      margin: 17px 12px;
+      border-radius: 12px;
+      border: 3px solid rgb(4, 247, 89);
+
+    }
+
+    .right {
+      float: right;
+      clear: both;
+
+    }
+
+    .left {
+      float: left;
+      clear: both;
+    }
+
+    #send-container {
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin: auto;
+      max-width: 985px;
+    }
+
+    #messageInp {
+      width: 92%;
+      border: 3px solid rgb(240, 233, 233);
+      border-radius: 7px;
+      height: 34px;
+    }
+
+    .btn {
+      cursor: pointer;
+      border: 3px solid rgb(240, 233, 233);
+      border-radius: 7px;
+      height: 34px;
+      color: green;
+      font-weight: bold;
+      padding: 8px 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav id="navbar">
+    <img src="logo.png" class="img logo" alt="">
+  </nav>
+  <div class="container">
+
+  </div>
+  <div class="send">
+    <form action="#" id="send-container">
+      <input type="text" name="messageInp" id="messageInp">
+      <button class="btn" type="submit">Send</button>
+    </form>
+  </div>
+  <script>
+    // img insertion
+    // var img = document.createElement("img");
+    // img.src= "logo.png";
+    // var src = document.getElementById("navbar");
+    // src.appendChild(img);
+
+    /////
+    const socket = io();
+    const form = document.getElementById('send-container');
+    const messageinput = document.getElementById('messageInp');
+    const messagecontainer = document.querySelector(".container");
+    // var audio = new Audio('');
+
+    const append = (message, position) => {
+      const messageelement = document.createElement('div');
+      messageelement.innerText = message;
+      messageelement.classList.add('message');
+      messageelement.classList.add(position);
+      messagecontainer.append(messageelement);
+      if (position == 'left') {
+
+        audio.play();
+      }
+    }
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const message = messageinput.value;
+      append(`you: ${message}`, 'right');
+      socket.emit('send', message);
+      messageinput.value = ''
+
+    })
+    // ask new user for his/her name and let the server know
+    let name = prompt('Enter your name to join the chat');
+
+    socket.emit('new-user-joined', name);
+
+    // if a new user joins,receive his/her name from the server
+    socket.on('user-joined', name => {
+      append(`${name} joined the chat`, 'right')
+    })
+    // if a server sends a message ,receive it
+    socket.on('receive', data => {
+      append(`${data.name}: ${data.message} `, 'left')
+    })
+    // if a user leaves the chat,append the info to the container
+    socket.on('left', name => {
+      append(`${data.name} left the chat`, 'right')
+    });
+    // if the form get submitted ,send server the message
+  </script>
+</body>
+
+</html>
+
+<!-- //////////////////////////////////////////////////////////////// -->
+
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Socket.IO chat</title>
+  <style>
+    body {
+      margin: 0;
+      padding-bottom: 3rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    #form {
+      background: rgba(0, 0, 0, 0.15);
+      padding: 0.25rem;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      height: 3rem;
+      box-sizing: border-box;
+      backdrop-filter: blur(10px);
+    }
+
+    #input {
+      border: none;
+      padding: 0 1rem;
+      flex-grow: 1;
+      border-radius: 2rem;
+      margin: 0.25rem;
+    }
+
+    #input:focus {
+      outline: none;
+    }
+
+    #form>button {
+      background: #333;
+      border: none;
+      padding: 0 1rem;
+      margin: 0.25rem;
+      border-radius: 3px;
+      outline: none;
+      color: #fff;
+    }
+
+    #messages {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    #messages>li {
+      padding: 0.5rem 1rem;
+    }
+
+    #messages>li:nth-child(odd) {
+      background: #efefef;
+    }
+  </style>
+</head>
+
+<body>
+  <ul id="messages"></ul>
+  <form id="form" action="">
+    <input id="input" autocomplete="off" /><button>Send</button>
+  </form>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    const form = document.getElementById('form');
+    const input = document.getElementById('input');
+    const messages = document.getElementById('messages');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (input.value) {
+        socket.emit('chat message', input.value);
+        input.value = '';
+      }
+    });
+    socket.on('chat message', (msg) => {
+      const item = document.createElement('li');
+      item.textContent = msg;
+      messages.appendChild(item);
+      window.scrollTo(0, document.body.scrollHeight);
+    });
+  </script>
+</body>
+
+</html> -->
